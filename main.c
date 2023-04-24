@@ -73,7 +73,7 @@ for (l=0;l<j;l++){
   break;}
  if(a[i][j]==a[i][l]){
   a [i][j]=(rand()%9)+1;
-  sudoku();}}//RECURSION
+  sudoku();}}
 o=0;
 for (c=0;c<=6;c+=3)
 {if(i>=c&&i<(c+3)){
