@@ -5,15 +5,20 @@
 #include <conio.h>   
 
 typedef struct {
-    char name[100];
+    char name[50];
     int score;
+    int num_plays;
 } Score;
+Score scores[100];
+
 int i,j,p,q,z,k=0,r,e=0,counter,del,pass,gen,points,hintmat[9][9],copy1,copy2,ques[9][9]
 ,check,ctr1,ctr2,hint,cl,ctr=0,l=0,c,o,d,b,value,a[9][9],m[50],v[50],w[50],n[50],org[9][9]
 ,finalctr=0,choice,multiplier,colour,level,option,helpexit=0,blank,store,hintcount,t,u;
+
 char name[100], line[100];
-Score scores[100];
+
 float time1; 
+
 void generator(void);
 void scorecard(void);
 void timedelay(void);
@@ -150,6 +155,7 @@ void saveToFile(char* name, int score){ //this function made for save name and s
   fprintf(file, "\n");
   fclose(file);}
 
+
 void ranking() {
     int num_scores = 0;
     FILE* file = fopen("scores.txt", "r");
@@ -166,10 +172,12 @@ void ranking() {
                 user_index = i;
                 break;}}
         if (user_index != -1) {
-            scores[user_index].score += score;} 
+            scores[user_index].score += score;
+            scores[user_index].num_plays++;} 
         else {
             strcpy(scores[num_scores].name, name);
             scores[num_scores].score = score;
+            scores[num_scores].num_plays = 1;
             num_scores++;}}
     fclose(file);
     for (int i = 0; i < num_scores - 1; i++) {
@@ -179,11 +187,11 @@ void ranking() {
                 scores[i] = scores[j];
                 scores[j] = temp;}}}
     system("cls");
-    printf("|Rank   Name     Score|\n");
-    printf("|=====================|\n");
+    printf("|Rank   Name     Score    Plays|\n");
+    printf("|==============================|\n");
     for (int i = 0; i < num_scores; i++) {
-        printf(" %-6d %-9s %d\n", i+1, scores[i].name, scores[i].score);}
-    printf("|=====================|\n");
+        printf(" %-6d %-9s %d        %d\n", i+1, scores[i].name, scores[i].score, scores[i].num_plays);}
+    printf("|==============================|\n");
     printf("Enter a character to return previous menu.\n");
     getch();
     system("cls");
@@ -209,7 +217,7 @@ void game() {//main function for game, option, level
 	printf("*** MENU ***\n");
 	printf("1. PLAY SUDOKU\n");
 	printf("2. LEARN TO PLAY SUDOKU\n");
-  printf("3. SCORE RANK\n");
+  printf("3. SCORE BOARD\n");
 	printf("4. EXIT\n");
 	printf("Please enter number of menu.\n");
 	scanf("%d",&choice);
@@ -221,7 +229,6 @@ void game() {//main function for game, option, level
 		printf("3. MEDIUM\n");
 		printf("4. DIFFICULT\n");
 		printf("5. PROFESSIONAL\n");
-    printf("6. Other\n");
 		printf("Please enter number of level or 0 to back. %s \n",name);
 		scanf("%d",&level);
 		switch(level){ 

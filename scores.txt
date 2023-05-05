@@ -1,4 +1,7 @@
 Nuke 34
 Khim 35
 Kong 25
-Nop 30Nuke 1
+Nop 30
+Nuke 21
+Nuke 0
+Nuke 3
